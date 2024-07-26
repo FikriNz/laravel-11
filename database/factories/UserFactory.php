@@ -23,8 +23,11 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->name();
+        $username = str_replace(" ", ".", strtolower($name));
         return [
-            'name' => fake()->name(),
+            'name' => $name,
+            'username' => $username,
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
@@ -41,4 +44,11 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    // public function admin(): static
+    // {
+    //     return $this->state(fn (array $attributes) => [
+    //         'is_admin' => true,
+    //     ]);
+    // }
 }
